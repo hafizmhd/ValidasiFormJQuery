@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Latihan JQuery</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    </head>
+
+    <body class="container-fluid">
+        <h2 class="mb-3">Input Data Mahasiswa</h2>
+
+        <form id="frm-mhs">
+            <div class="mb-3">
+                <label for="nim" class="form-label">NIM: </label><br>
+			    <input class="form-control-sm" type="text" name="nim" id="nim" maxlength="10" size="15" required>
+            </div>
+ 
+			<div class="mb-3">
+                <label for="nama" class="form-label">NAMA: </label><br>
+			    <input class="form-control-sm" type="text" name="nama" id="nama" size="30" required>
+            </div>
+ 
+			<div class="mb-3">
+                <label for="alamat" class="form-label">ALAMAT: </label><br>
+			    <textarea class="form-control-sm" name="alamat" id="alamat" cols="40" rows="4" required></textarea>
+            </div>
+ 
+			<div class="mb-3">
+                <label for="tgl" class="form-label">TANGGAL LAHIR: </label><br>
+			    <input class="form-control-sm" type="text" name="tgl" id="tgl" maxlength="10" size="15" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="umur" class="form-label">UMUR: </label><br>
+			    <input class="form-control-sm" type="text" name="umur" id="umur" maxlength="3" size="7" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">ALAMAT EMAIL: </label><br>
+			    <input class="form-control-sm" type="text" name="email" id="email" size="50" required >
+            </div>
+
+            <div class="mb-3">
+                <label for="situs" class="form-label">ALAMAT SITUS: </label><br>
+			    <input class="form-control-sm" type="text" name="situs" id="situs" size="50" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="pass1" class="form-label">PASSWORD: </label><br>
+			    <input class="form-control-sm" type="password" name="pass1" id="pass1" size="15" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="pass2" class="form-label">ULANGI PASSWORD: </label><br>
+			    <input class="form-control-sm" type="password" name="pass2" id="pass2" size="15" required>
+            </div>
+
+            <div class="mb-3">
+			    <button type="submit" name="Submit" value="Submit" class="btn btn-primary col-1">Submit</button>
+            </div>
+        </form>
+
+        <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+	            $('#frm-mhs').validate( {
+                        rules: {
+                            nim : {
+                                digits: true,
+                                minlength:10,
+                                maxlength:10
+                            },
+
+                            tgl : {
+                                indonesianDate : true
+                            },
+
+                            umur : {
+                                digits : true,
+                                range : [0, 100]
+                            },
+
+                            email : {
+                                email : true
+                            },
+
+                            situs : {
+                                url : true
+                            },
+
+                            pass2 : {
+                                equalTo : "#pass1"
+                            }
+                        },
+
+                        messages: {
+                            nim: {
+                                required: "Kolom nim harus diisi",
+                                minlength: "Kolom nim harus terdiri dari 10 digit",
+                                maxlength: "Kolom nim harus terdiri dari 10 digit"
+                            },
+                            email: {
+                                required: "Alamat email harus diisi",
+                                email: "Format email tidak valid"
+                            },
+                            pass2: {
+                                equalTo: "Password tidak sama"
+                            }
+                        }
+
+                });
+            });
+
+            $.validator.addMethod(
+                "indonesianDate",
+                function(value, element) {
+                    return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+                },
+                "Please enter a date in the format of DD/MM/YYYY"
+            );
+        </script>
+
+    </body>
+</html>
